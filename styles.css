@@ -60,6 +60,15 @@ main {
   width: 100%;
 }
 
+.footer p {
+  margin: 0.25rem 0;
+}
+
+.footer .copyright {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
 .grid-cell {
   transition: background-color 0.2s;
 }
