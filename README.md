@@ -1,6 +1,7 @@
 # Partner Rubric Point System
 
 Welcome to the **Partner Rubric Point System**, a sparkling digital canvas inspired by the vibrant interactivity of the [SongMaker app](https://kappter.github.io/SongMaker/). This tool transforms the reflective art of relationship evaluation into an engaging, interactive experience. Like a musical score, it helps you and your partner compose a symphony of strengths and navigate the occasional off-key notes, fostering deeper connection and growth.
+[![Perfect10](https://github.com/kappter/perfect10/blob/main/images/perfect10.png?raw=true)](https://kappter.github.io/perfect10/)
 
 ## What It Does
 
