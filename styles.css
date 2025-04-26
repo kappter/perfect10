@@ -1,8 +1,31 @@
+:root {
+  --bg-color: #f3f4f6;
+  --text-color: #1f2937;
+  --navbar-bg: #1f2937;
+  --navbar-text: #ffffff;
+  --footer-bg: #1f2937;
+  --footer-text: #ffffff;
+  --cell-bg: #ffffff;
+  --cell-hover: #e5e7eb;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1f2937;
+  --text-color: #ffffff;
+  --navbar-bg: #111827;
+  --navbar-text: #ffffff;
+  --footer-bg: #111827;
+  --footer-text: #ffffff;
+  --cell-bg: #374151;
+  --cell-hover: #4b5563;
+}
+
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f3f4f6;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: Arial, sans-serif;
   margin: 0;
 }
@@ -15,11 +38,11 @@ main {
   position: sticky;
   top: 0;
   z-index: 50;
-  background-color: #1f2937;
+  background-color: var(--navbar-bg);
 }
 
 .navbar a {
-  color: white;
+  color: var(--navbar-text);
   padding: 1rem;
   text-decoration: none;
   transition: background-color 0.3s;
@@ -30,8 +53,8 @@ main {
 }
 
 .footer {
-  background-color: #1f2937;
-  color: white;
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
   padding: 1rem;
   text-align: center;
   width: 100%;
