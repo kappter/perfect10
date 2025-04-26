@@ -8,7 +8,10 @@ const categories = [
       "Move the body in sports",
       "Understand self and others",
       "Recognize patterns",
-      "", "", "", ""
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
     ]
   },
   {
@@ -18,7 +21,12 @@ const categories = [
       "Health-minded activities",
       "Activist",
       "Complete",
-      "", "", "", "", "", ""
+      "Exploration Drive",
+      "Risk-Taking",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
     ]
   },
   {
@@ -27,36 +35,119 @@ const categories = [
       "Home is kept",
       "Workspace is kept",
       "Personal items have place",
-      "", "", "", "", "", "", ""
+      "Organizational Habits",
+      "Attention to Detail",
+      "Systematic Approach",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
     ]
   },
   {
     name: "Responsibility",
-    subcategories: ["Clear boundaries", "", "", "", "", "", "", "", "", ""]
+    subcategories: [
+      "Clear boundaries",
+      "Duty Fulfillment",
+      "Reliability",
+      "Accountability",
+      "Commitment",
+      "Ethical Conduct",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
+    ]
   },
   {
     name: "Confidence and the Heart",
-    subcategories: ["Self-efficacy", "", "", "", "", "", "", "", "", ""]
+    subcategories: [
+      "Self-efficacy",
+      "Emotional Resilience",
+      "Self-Belief",
+      "Optimism",
+      "Inner Strength",
+      "Empathy",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
+    ]
   },
   {
     name: "Resourceful",
-    subcategories: ["Open-minded", "Self-assured", "Imaginative", "", "", "", "", "", "", ""]
+    subcategories: [
+      "Open-minded",
+      "Self-assured",
+      "Imaginative",
+      "Problem-Solving",
+      "Innovative Thinking",
+      "Flexibility",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
+    ]
   },
   {
     name: "Playful",
-    subcategories: ["Other-directed", "", "", "", "", "", "", "", "", ""]
+    subcategories: [
+      "Other-directed",
+      "Spontaneity",
+      "Humor",
+      "Joyfulness",
+      "Creativity in Fun",
+      "Social Engagement",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
+    ]
   },
   {
     name: "Courageous",
-    subcategories: ["Physical", "Emotional", "", "", "", "", "", "", "", ""]
+    subcategories: [
+      "Physical",
+      "Emotional",
+      "Moral Bravery",
+      "Risk Tolerance",
+      "Standing Firm",
+      "Overcoming Fear",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
+    ]
   },
   {
     name: "Wisdom",
-    subcategories: ["Visionary", "", "", "", "", "", "", "", "", ""]
+    subcategories: [
+      "Visionary",
+      "Insightful Judgment",
+      "Life Experience",
+      "Perspective",
+      "Prudence",
+      "Mentorship",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
+    ]
   },
   {
     name: "Beauty",
-    subcategories: ["Extravagance", "", "", "", "", "", "", "", "", ""]
+    subcategories: [
+      "Extravagance",
+      "Aesthetic Appreciation",
+      "Grace",
+      "Charm",
+      "Elegance",
+      "Cultural Expression",
+      "Growth Potential",
+      "Consistency",
+      "Adaptability",
+      "Future Vision"
+    ]
   }
 ];
 
@@ -167,11 +258,7 @@ const App = () => {
                         ? `bg-green-100 bg-opacity-${value * 10}`
                         : `bg-[var(--cell-bg)] hover:bg-[var(--cell-hover)]`
                     } flex items-center justify-center text-sm`}
-                    data-tooltip={
-                      category.subcategories[col]
-                        ? `Score ${value} for ${category.subcategories[col]}`
-                        : ""
-                    }
+                    data-tooltip={`Score ${value} for ${category.subcategories[col]}`}
                   >
                     {value > 0 ? value : ""}
                   </div>
@@ -197,6 +284,7 @@ const App = () => {
       </main>
       <footer className="footer">
         <p>Overall Average Score: <span className="font-bold">{overallScore}/10</span></p>
+        <p className="copyright">© 2025 All Rights Reserved</p>
       </footer>
     </div>
   );
