@@ -64,6 +64,16 @@ const App = () => {
   const [grid, setGrid] = React.useState(
     Array(categories.length).fill().map(() => Array(10).fill(0))
   );
+  const [theme, setTheme] = React.useState(localStorage.getItem('theme') || 'light');
+
+  React.useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   const totalScores = grid.flat().reduce((sum, val) => sum + val, 0);
   const nonEmptyCells = grid.flat().filter(val => val > 0).length;
@@ -105,6 +115,9 @@ const App = () => {
           <a href="#" className="text-lg">Home</a>
           <a href="#" onClick={handleClear} className="text-lg">Clear Grid</a>
           <a href="#" onClick={handleDownload} className="text-lg">Download CSV</a>
+          <a href="#" onClick={toggleTheme} className="text-lg">
+            {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+          </a>
         </div>
       </nav>
       <main className="container mx-auto p-4">
@@ -134,7 +147,7 @@ const App = () => {
                     className={`grid-cell p-2 border border-gray-300 cursor-pointer transition-colors ${
                       value > 0
                         ? `bg-green-100 bg-opacity-${value * 10}`
-                        : "bg-white hover:bg-gray-200"
+                        : `bg-[var(--cell-bg)] hover:bg-[var(--cell-hover)]`
                     } flex items-center justify-center text-sm`}
                     title={category.subcategories[col] ? category.subcategories[col] : ""}
                   >
@@ -146,7 +159,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded shadow">
+        <div className="bg-[var(--cell-bg)] p-4 rounded shadow">
           <h2 className="text-xl font-semibold mb-4">Total Score per Category</h2>
           <Recharts.ResponsiveContainer width="100%" height={400}>
             <Recharts.BarChart data={chartData}>
@@ -155,6 +168,7 @@ const App = () => {
               <Recharts.YAxis label={{ value: "Total Score", angle: -90, position: "insideLeft", style: { fontSize: 12 } }} style={{ fontSize: 12 }} />
               <Recharts.Tooltip />
               <Recharts.Legend />
+มีการแปลหน้านี้
               <Recharts.Bar dataKey="score" fill="#82ca9d" />
             </Recharts.BarChart>
           </Recharts.ResponsiveContainer>
