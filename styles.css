@@ -67,3 +67,22 @@ main {
 .grid-cell:hover {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip:hover:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1f2937;
+  color: #ffffff;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  z-index: 100;
+  font-size: 0.875rem;
+}
