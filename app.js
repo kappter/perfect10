@@ -79,6 +79,13 @@ const App = () => {
   const nonEmptyCells = grid.flat().filter(val => val > 0).length;
   const overallScore = nonEmptyCells > 0 ? (totalScores / nonEmptyCells).toFixed(1) : 0;
 
+  const calculateCategoryBonus = (row) => {
+    const nonEmptySubcategories = categories[row].subcategories.filter(sub => sub).length;
+    if (nonEmptySubcategories === 0) return false;
+    const validScores = grid[row].slice(0, nonEmptySubcategories).every(score => score >= 5);
+    return validScores;
+  };
+
   const handleCellClick = (row, col) => {
     const newGrid = grid.map((r, i) =>
       i === row ? r.map((c, j) => (j === col ? (c === 10 ? 0 : c + 1) : c)) : r
@@ -92,8 +99,12 @@ const App = () => {
 
   const handleDownload = () => {
     const csvData = [
-      ["Category", ...Array(10).fill().map((_, i) => `Score ${i + 1}`)],
-      ...categories.map((category, row) => [category.name, ...grid[row]])
+      ["Category", ...Array(10).fill().map((_, i) => `Score ${i + 1}`), "Bonus"],
+      ...categories.map((category, row) => [
+        category.name,
+        ...grid[row],
+        calculateCategoryBonus(row) ? "Yes" : "No"
+      ])
     ];
     const csv = Papa.unparse(csvData);
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -139,17 +150,28 @@ const App = () => {
 
             {categories.map((category, row) => (
               <React.Fragment key={row}>
-                <div className="bg-blue-100 p-2 font-semibold">{category.name}</div>
+                <div
+                  className="bg-blue-100 p-2 font-semibold tooltip flex items-center"
+                  data-tooltip={`${category.name} - Bonus: ${
+                    calculateCategoryBonus(row) ? "High scores achieved!" : "Needs higher scores"
+                  }`}
+                >
+                  {category.name} {calculateCategoryBonus(row) && <span className="ml-2 text-yellow-500">★</span>}
+                </div>
                 {grid[row].map((value, col) => (
                   <div
                     key={col}
                     onClick={() => handleCellClick(row, col)}
-                    className={`grid-cell p-2 border border-gray-300 cursor-pointer transition-colors ${
+                    className={`grid-cell p-2 border border-gray-300 cursor-pointer transition-colors tooltip ${
                       value > 0
                         ? `bg-green-100 bg-opacity-${value * 10}`
                         : `bg-[var(--cell-bg)] hover:bg-[var(--cell-hover)]`
                     } flex items-center justify-center text-sm`}
-                    title={category.subcategories[col] ? category.subcategories[col] : ""}
+                    data-tooltip={
+                      category.subcategories[col]
+                        ? `Score ${value} for ${category.subcategories[col]}`
+                        : ""
+                    }
                   >
                     {value > 0 ? value : ""}
                   </div>
@@ -168,7 +190,6 @@ const App = () => {
               <Recharts.YAxis label={{ value: "Total Score", angle: -90, position: "insideLeft", style: { fontSize: 12 } }} style={{ fontSize: 12 }} />
               <Recharts.Tooltip />
               <Recharts.Legend />
-มีการแปลหน้านี้
               <Recharts.Bar dataKey="score" fill="#82ca9d" />
             </Recharts.BarChart>
           </Recharts.ResponsiveContainer>
