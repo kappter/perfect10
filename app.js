@@ -156,6 +156,7 @@ const App = () => {
     Array(categories.length).fill().map(() => Array(10).fill(0))
   );
   const [theme, setTheme] = React.useState(localStorage.getItem('theme') || 'light');
+  const [activeCell, setActiveCell] = React.useState(null);
 
   React.useEffect(() => {
     document.body.setAttribute('data-theme', theme);
@@ -177,11 +178,20 @@ const App = () => {
     return validScores;
   };
 
-  const handleCellClick = (row, col) => {
+  const handleCellHover = (row, col) => {
+    setActiveCell({ row, col });
+  };
+
+  const handleCellLeave = () => {
+    setActiveCell(null);
+  };
+
+  const handleSelectValue = (row, col, value) => {
     const newGrid = grid.map((r, i) =>
-      i === row ? r.map((c, j) => (j === col ? (c === 10 ? 0 : c + 1) : c)) : r
+      i === row ? r.map((c, j) => (j === col ? value : c)) : r
     );
     setGrid(newGrid);
+    setActiveCell(null);
   };
 
   const handleClear = () => {
@@ -252,8 +262,9 @@ const App = () => {
                 {grid[row].map((value, col) => (
                   <div
                     key={col}
-                    onClick={() => handleCellClick(row, col)}
-                    className={`grid-cell p-2 border border-gray-300 cursor-pointer transition-colors tooltip ${
+                    onMouseEnter={() => handleCellHover(row, col)}
+                    onMouseLeave={handleCellLeave}
+                    className={`grid-cell p-2 border border-gray-300 cursor-pointer transition-colors tooltip relative ${
                       value > 0
                         ? `bg-green-100 bg-opacity-${value * 10}`
                         : `bg-[var(--cell-bg)] hover:bg-[var(--cell-hover)]`
@@ -261,6 +272,19 @@ const App = () => {
                     data-tooltip={`Score ${value} for ${category.subcategories[col]}`}
                   >
                     {value > 0 ? value : ""}
+                    {activeCell && activeCell.row === row && activeCell.col === col && (
+                      <div className="absolute z-50 bg-[var(--cell-bg)] border border-gray-300 rounded shadow-lg top-full left-0 mt-1">
+                        {[...Array(11).keys()].map((num) => (
+                          <div
+                            key={num}
+                            onClick={() => handleSelectValue(row, col, num)}
+                            className="px-4 py-2 hover:bg-[var(--cell-hover)] cursor-pointer text-sm"
+                          >
+                            {num}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </React.Fragment>
