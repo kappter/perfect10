@@ -95,3 +95,10 @@ main {
   z-index: 100;
   font-size: 0.875rem;
 }
+
+/* Ensure dropdown is not clipped by overflow */
+.overflow-x-auto {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: visible; /* Allow vertical overflow for dropdowns */
+}
