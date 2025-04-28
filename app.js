@@ -178,19 +178,22 @@ const App = () => {
     return validScores;
   };
 
-  const handleCellHover = (row, col) => {
+  const handleCellClick = (row, col) => {
     setActiveCell({ row, col });
   };
 
-  const handleCellLeave = () => {
+  const handleInputChange = (row, col, value) => {
+    const numValue = parseInt(value, 10);
+    if (!isNaN(numValue) && numValue >= 0 && numValue <= 10) {
+      const newGrid = grid.map((r, i) =>
+        i === row ? r.map((c, j) => (j === col ? numValue : c)) : r
+      );
+      setGrid(newGrid);
+    }
     setActiveCell(null);
   };
 
-  const handleSelectValue = (row, col, value) => {
-    const newGrid = grid.map((r, i) =>
-      i === row ? r.map((c, j) => (j === col ? value : c)) : r
-    );
-    setGrid(newGrid);
+  const handleInputBlur = () => {
     setActiveCell(null);
   };
 
@@ -262,8 +265,7 @@ const App = () => {
                 {grid[row].map((value, col) => (
                   <div
                     key={col}
-                    onMouseEnter={() => handleCellHover(row, col)}
-                    onMouseLeave={handleCellLeave}
+                    onClick={() => handleCellClick(row, col)}
                     className={`grid-cell p-2 border border-gray-300 cursor-pointer transition-colors tooltip relative ${
                       value > 0
                         ? `bg-green-100 bg-opacity-${value * 10}`
@@ -271,19 +273,19 @@ const App = () => {
                     } flex items-center justify-center text-sm`}
                     data-tooltip={`Score ${value} for ${category.subcategories[col]}`}
                   >
-                    {value > 0 ? value : ""}
-                    {activeCell && activeCell.row === row && activeCell.col === col && (
-                      <div className={`absolute z-50 bg-[var(--cell-bg)] border border-gray-300 rounded shadow-lg left-0 ${row >= categories.length - 2 ? 'bottom-full mb-1' : 'top-full mt-1'}`}>
-                        {[...Array(11).keys()].map((num) => (
-                          <div
-                            key={num}
-                            onClick={() => handleSelectValue(row, col, num)}
-                            className="px-4 py-2 hover:bg-[var(--cell-hover)] cursor-pointer text-sm"
-                          >
-                            {num}
-                          </div>
-                        ))}
-                      </div>
+                    {activeCell && activeCell.row === row && activeCell.col === col ? (
+                      <input
+                        type="number"
+                        min="0"
+                        max="10"
+                        defaultValue={value}
+                        onChange={(e) => handleInputChange(row, col, e.target.value)}
+                        onBlur={handleInputBlur}
+                        className="w-full h-full text-center bg-transparent border-none outline-none"
+                        autoFocus
+                      />
+                    ) : (
+                      value > 0 ? value : ""
                     )}
                   </div>
                 ))}
