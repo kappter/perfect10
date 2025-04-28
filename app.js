@@ -273,7 +273,7 @@ const App = () => {
                   >
                     {value > 0 ? value : ""}
                     {activeCell && activeCell.row === row && activeCell.col === col && (
-                      <div className="absolute z-50 bg-[var(--cell-bg)] border border-gray-300 rounded shadow-lg top-full left-0 mt-1">
+                      <div className={`absolute z-50 bg-[var(--cell-bg)] border border-gray-300 rounded shadow-lg left-0 ${row >= categories.length - 2 ? 'bottom-full mb-1' : 'top-full mt-1'}`}>
                         {[...Array(11).keys()].map((num) => (
                           <div
                             key={num}
