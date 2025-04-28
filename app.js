@@ -240,11 +240,11 @@ const App = () => {
           Overall Average Score: <span className="font-bold text-green-600">{overallScore}/10</span>
         </p>
 
-        <div className="overflow-x-auto mb-8">
-          <div className="grid grid-cols-[200px_repeat(10,80px)] gap-1 min-w-max">
+        <div className="flex justify-center mb-8">
+          <div className="grid grid-cols-[150px_repeat(10,60px)] gap-1 w-fit">
             <div className="bg-blue-500 text-white p-2 font-bold">Category</div>
             {Array(10).fill().map((_, i) => (
-              <div key={i} className="bg-blue-500 text-white p-2 text-center font-bold">
+              <div key={i} className="bg-blue-500 text-white p-2 text-center font-bold text-xs">
                 {i + 1}
               </div>
             ))}
@@ -252,7 +252,7 @@ const App = () => {
             {categories.map((category, row) => (
               <React.Fragment key={row}>
                 <div
-                  className="bg-blue-100 p-2 font-semibold tooltip flex items-center"
+                  className="bg-blue-100 p-2 font-semibold tooltip flex items-center text-sm"
                   data-tooltip={`${category.name} - Bonus: ${
                     calculateCategoryBonus(row) ? "High scores achieved!" : "Needs higher scores"
                   }`}
@@ -264,26 +264,27 @@ const App = () => {
                     key={col}
                     onMouseEnter={() => handleCellHover(row, col)}
                     onMouseLeave={handleCellLeave}
-                    className={`grid-cell p-2 border border-gray-300 cursor-pointer transition-colors tooltip relative ${
+                    className={`grid-cell p-1 border border-gray-300 cursor-pointer transition-colors tooltip relative ${
                       value > 0
                         ? `bg-green-100 bg-opacity-${value * 10}`
                         : `bg-[var(--cell-bg)] hover:bg-[var(--cell-hover)]`
                     } flex items-center justify-center text-sm`}
                     data-tooltip={`Score ${value} for ${category.subcategories[col]}`}
                   >
-                    {value > 0 ? value : ""}
-                    {activeCell && activeCell.row === row && activeCell.col === col && (
-                      <div className={`absolute z-50 bg-[var(--cell-bg)] border border-gray-300 rounded shadow-lg left-0 ${row >= categories.length - 2 ? 'bottom-full mb-1' : 'top-full mt-1'}`}>
+                    {activeCell && activeCell.row === row && activeCell.col === col ? (
+                      <div className="absolute inset-0 grid grid-cols-4 grid-rows-3 gap-0.5 p-0.5 bg-[var(--cell-bg)] z-50">
                         {[...Array(11).keys()].map((num) => (
                           <div
                             key={num}
                             onClick={() => handleSelectValue(row, col, num)}
-                            className="px-4 py-2 hover:bg-[var(--cell-hover)] cursor-pointer text-sm"
+                            className="flex items-center justify-center text-[10px] hover:bg-[var(--cell-hover)] cursor-pointer"
                           >
                             {num}
                           </div>
                         ))}
                       </div>
+                    ) : (
+                      value > 0 ? value : ""
                     )}
                   </div>
                 ))}
