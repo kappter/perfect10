@@ -96,9 +96,31 @@ main {
   font-size: 0.875rem;
 }
 
-/* Ensure dropdown is not clipped by overflow */
+/* Ensure input fields are not clipped by overflow */
 .overflow-x-auto {
   position: relative;
   overflow-x: auto;
-  overflow-y: visible; /* Allow vertical overflow for dropdowns */
+  overflow-y: visible; /* Allow vertical overflow for input fields */
+}
+
+/* Style for input fields in grid cells */
+.grid-cell input {
+  background-color: var(--cell-bg);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  appearance: textfield; /* Remove spinner arrows */
+}
+
+/* Remove spinner arrows for number input in various browsers */
+.grid-cell input::-webkit-outer-spin-button,
+.grid-cell input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.grid-cell input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
 }
