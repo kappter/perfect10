@@ -1,5 +1,7 @@
 # Partner Rubric Point System
 
+After a comedian quipped he'd never met a '10' and only encountered three '9s' in his life, I was left pondering: What even is a 10? A year of single-life soul-searching later, I built the Perfect 10 Evaluator—a tongue-in-cheek, code-driven quest to quantify the unquantifiable. Whether you're sizing up a roommate, significant other, or even your mom, this tool playfully crunches the numbers on compatibility, charm, and that elusive '10' factor. Spoiler: It’s less about finding perfection and more about laughing at the absurdity of trying.
+
 Welcome to the **Partner Rubric Point System**, a sparkling digital canvas inspired by the vibrant interactivity of the [SongMaker app](https://kappter.github.io/SongMaker/). This tool transforms the reflective art of relationship evaluation into an engaging, interactive experience. Like a musical score, it helps you and your partner compose a symphony of strengths and navigate the occasional off-key notes, fostering deeper connection and growth.
 [![Perfect10](https://github.com/kappter/perfect10/blob/main/images/perfect10.png?raw=true)](https://kappter.github.io/perfect10/)
 
